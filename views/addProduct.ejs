@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <%- include('partials/head.ejs') %>
+    <body>
+        <%- include('partials/main-nav.ejs') %>
+        <main>
+            
+            <form action='/admin/add-product/product' method='POST' class='form-data'>
+                <h3 class ='form-title'>Enter the Sweet Details:</h3>
+                <div class = 'form-controls'>
+                    <label for='name'>Name: </label>
+                    <input type='text' name='name'/>
+                </div>
+                <button type='submit'>Submit</button>
+            </form>
+        </main>
+    </body>
+</html>

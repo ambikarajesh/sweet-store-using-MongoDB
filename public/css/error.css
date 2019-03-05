@@ -38,7 +38,7 @@
   }
   
   .notfound .notfound-404 h1 {
-    font-family: 'Passion One', cursive;
+    font-family: 'Laila', serif;
     color: #478307;
     font-size: 150px;
     letter-spacing: 15.5px;
@@ -53,7 +53,7 @@
   }
   
   .notfound h2 {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Laila', serif;
     color: #292929;
     font-size: 28px;
       font-weight: 700;
@@ -63,7 +63,7 @@
   }
   
   .notfound p {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Laila', serif;
     font-size: 14px;
     font-weight: 400;
     margin-top: 0;
@@ -72,7 +72,7 @@
   }
   
   .notfound a {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Laila', serif;
     font-size: 14px;
     text-decoration: none;
     text-transform: uppercase;
