@@ -3,7 +3,7 @@ const ProductsModel = require('../../models/productsModel');
 const config = configs['data'];
 const productsModel = new ProductsModel(config.sweets);
 exports.addProduct = (req, res, next)=>{
-    res.render('addProduct', {
+    res.render('admin/addProduct', {
         pageTitle : 'Admin',
         path : '/admin/add-product'
     })

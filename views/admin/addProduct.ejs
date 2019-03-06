@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-    <%- include('partials/head.ejs') %>
+    <%- include('../partials/head.ejs') %>
     <body>
-        <%- include('partials/main-nav.ejs') %>
+        <%- include('../partials/main-nav.ejs') %>
         <main>
             
             <form action='/admin/add-product/product' method='POST' class='form-data'>
@@ -10,6 +10,12 @@
                 <div class = 'form-controls'>
                     <label for='name'>Name: </label>
                     <input type='text' name='name'/>
+                    <label for='image'>ImageURL: </label>
+                    <input type='text' name='image'/>
+                    <label for='name'>Price: </label>
+                    <input type='text' name='price'/>
+                    <label for='name'>Ingredients: </label>
+                    <input type='text' name='ingredients'/>
                 </div>
                 <button type='submit'>Submit</button>
             </form>

@@ -6,7 +6,7 @@ const productsModel = new ProductsModel(config.sweets);
 
 exports.getProducts = async(req, res, next)=>{
     const products = await productsModel.fetchProducts();
-    res.render('home', {
+    res.render('shop/home', {
         pageTitle : 'Shop',
         path: '/',
         products:products
