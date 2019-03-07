@@ -14,10 +14,12 @@
                             <ul class = 'main-content_item-list'>
                                 <% products.forEach(product=>{ %>
                                     <li class = 'main-content_item'>
-                                        <div class='item_image'><img src="<%= product.image  %>" alt = "<%= product.name %>" width ='200px' height = '200px' /></div>
-                                        <div class='item_name'><%= product.name%></div>
-                                        <div class='item_price'> $ <%= product.price%> / per lb</div>
-                                        <div class='item_button'><button id = 'add-to-cart'>Add to Cart</button></div>
+                                        <div>
+                                            <div class='item_image'><img src="<%= product.image  %>" alt = "<%= product.name %>" width ='200px' height = '200px' /></div>
+                                            <div class='item_name'><%= product.name%></div>
+                                            <div class='item_price'> $ <%= product.price%> / per lb</div>
+                                            <div class='item_button'><button id = 'add-to-cart'>Add to Cart</button></div>
+                                        </div>                                        
                                     </li>
                                 <% }) %>
                             </ul>

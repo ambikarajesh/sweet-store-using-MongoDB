@@ -1,12 +1,20 @@
+const slide = document.querySelector('.main-content_item-list');
+const size = document.querySelector('.main-content_item').clientWidth;
+const total = document.querySelectorAll('.main-content_item').length;
+let count = 0;
+function rightArrow(){
+    if(count<total-1){
+        slide.style.transition = 'transform 0.4s ease-in-out' ;
+        count++;
+        slide.style.transform = 'translatex('+(-size*count)+'px)';
 
-// function rightArrow(){    
-//     const nav = document.querySelector('.main-content_nav')
-//     const itemList = document.querySelector('.main-content_item-list');
-//     console.log(itemList.offsetLeft)
-//     console.log(itemList.offsetWidth)
-//     console.log(nav.offsetWidth)
-//     itemList.style.left = '-1000px';
-//  }
-//  function leftArrow(){
-//      console.log('left')
-//  }
+    }
+ 
+}
+function leftArrow(){
+    if(count>0){
+        slide.style.transition = 'transform 0.4s ease-in-out' ;
+        count--;
+        slide.style.transform = 'translatex('+(-size*count)+'px)';
+    }
+   }
