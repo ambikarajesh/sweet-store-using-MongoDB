@@ -46,7 +46,8 @@ main {
 .main-header_item a:hover,
 .main-header_item a:active,
 .main-header_item a.active {
-    color: #ccc;
+    border-bottom:2px solid #fff;
+    color:#000;
 }
 
 .main-content{
@@ -113,7 +114,8 @@ main {
 .item_button{
     margin:10px;
 }
-#add-to-cart{
+
+#add-to-cart, #edit, #delete{
     font-size: 12px;
     padding:10px 20px;
     background-color: #478307;
@@ -122,6 +124,14 @@ main {
     border-radius: 5px 5px;
     cursor: pointer;
     outline: none;
+    font-weight: bold;
+}
+#add-to-cart:hover, #edit:hover, #delete:hover{
+    color:#000;
+    border:2px solid #000;
+}
+#edit, #delete{
+    width:75px;
 }
 
 i {

@@ -2,8 +2,9 @@ const configs = require("../../config")
 const ProductsModel = require('../../models/productsModel');
 const config = configs['data'];
 const productsModel = new ProductsModel(config.sweets);
+
 exports.addProduct = (req, res, next)=>{
-    res.render('admin/addProduct', {
+    res.render('admin/add-product', {
         pageTitle : 'Admin',
         path : '/admin/add-product'
     })
@@ -14,6 +15,14 @@ exports.getProduct = async(req, res, next)=>{
     res.redirect('/');
 }
 
+exports.getProducts = async(req, res, next)=>{
+    const products = await productsModel.fetchProducts();
+    res.render('admin/products', {
+        pageTitle : 'Admin Products',
+        path: '/admin/products',
+        products:products
+    })
+}
 
 
 
