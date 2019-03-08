@@ -72,7 +72,9 @@ main {
     transition: width 5s ease;
     
 }
-
+.main-content_item-list a{
+    text-decoration: none;
+}
 .main-content_item{    
     width: 250px; 
     list-style: none;    

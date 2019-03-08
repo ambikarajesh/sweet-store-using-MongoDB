@@ -2,7 +2,66 @@
 <html>
    <%- include('../partials/head.ejs') %>
    <body>
-        <%- include('../partials/main-nav.ejs') %>
-        <h1>My Cart</h1>
+        <%- include('../partials/main-nav.ejs') %>        
+        <main>
+            <h3>Shopping Cart <span class ='cart_no-of-items'>(<%= items.length %> items)</span></h3>
+            <div class = 'cart_main-content'>
+                <div class='cart_main-content_nav'>
+                    <% if(items.length>0){%>
+                        <ul class='cart_main-content_itemlist'>
+                            <% items.forEach (item =>{ %>
+                                <li class='cart_main-content_item'>
+                                    <div class='cart_item-image'>
+                                        <img src = '<%= item.image %>' width ='200px' height = '200px'/>
+                                    </div>
+                                    <div  class='cart_item-name'>
+                                        <h4><%= item.name %></h4>
+                                    </div>
+                                    <div  class='cart_item-price'>
+                                        <div>
+                                                <h4> $ <%= item.price%> / per lb</h4>
+                                        </div>
+                                        
+                                        <div>
+                                            <button>-</button>
+                                            <span style='font-size:13px;'><%= item.qt %> lb</span>
+                                            <button>+</button>
+                                        </div>
+                                        <div>
+                                                <button>X remove</button>
+                                        </div>                                    
+                                    </div>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <% } else { %>
+                        <h3>no item in the cart...</h3>
+                    <% } %>
+                </div>
+                <div class = 'order-summary'>
+                    <div>
+                        <h3>Order Summary</h3>
+                        <p>
+                            <span><%= items.length %> Item Subtotal</span> 
+                            <strong><%= subTotal %> USD</strong>  
+                        </p>
+                        <p>
+                            <span>Shipping</span>  
+                            <strong>FREE</strong>
+                        </p>
+                        <p>
+                                <span>Total</span> 
+                                <strong><%= subTotal %> USD</strong>  
+                        </p>
+                        <% if(items.length !== 0) { %>
+                            <button id='proceed-to-checkout'>Proceed to Checkout*</button>
+                        <% } %>
+                        <h6 style = 'padding-top:20px'>* Prices may vary depending on the final shipping destination.</h6>
+                    </div>
+                    
+                </div>
+            </div>
+        </main>
+        
     </body>
 </html>
