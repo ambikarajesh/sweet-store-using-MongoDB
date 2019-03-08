@@ -1,5 +1,6 @@
 const fs = require('fs');
 const util = require('util');
+const uniqid = require('uniqid');
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
@@ -19,9 +20,14 @@ class Products{
     }
    
     async storeProduct(product){
+        product.id = uniqid();
         const products = await this.fetchProducts();
         products.push(product);
         await writeFile(this.dataFile, JSON.stringify(products));
+    }
+    async fetchProduct(productId){
+        const products = await this.fetchProducts();
+        return products.find(product => product.id === productId);
     }
 }
 

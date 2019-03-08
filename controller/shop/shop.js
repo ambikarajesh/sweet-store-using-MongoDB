@@ -18,6 +18,14 @@ exports.getProducts = async(req, res, next)=>{
         products:products
     })
 }
+exports.getProduct = async(req, res, next)=>{
+    const product = await productsModel.fetchProduct(req.params.productId);
+    res.render('shop/product-detail', {
+        pageTitle : 'Products',
+        path: '/products',
+        product:product
+    })
+}
 exports.getCart = async(req, res, next)=>{
     res.render('shop/cart', {
         pageTitle : 'My Cart',
