@@ -1,3 +1,4 @@
+var JSAlert = require('js-alert');
 const configs = require("../../config")
 const ProductsModel = require('../../models/productsModel');
 const config = configs['data'];
@@ -22,6 +23,11 @@ exports.getProducts = async(req, res, next)=>{
         path: '/admin/products',
         products:products
     })
+}
+
+exports.deleteProduct = async(req, res, next)=>{
+    await productsModel.removeProduct(req.body.productId);
+    res.redirect('/admin/products');
 }
 
 

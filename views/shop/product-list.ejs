@@ -7,10 +7,9 @@
             <h3>Milk Sweets</h3>
            
             <nav class='main-content_nav'>
-                <p onclick ="rightArrow()"><i class="right"></i></p>  
+                <p onclick ="rightArrow()"><i class=" right"></i></p>  
                  <div class = 'main-content_wrapper'>             
-                    <% if(products.length>0){ %>
-                        
+                    <% if(products.length>0){ %>                        
                             <ul class = 'main-content_item-list'>
                                 <% products.forEach(product=>{ %>
                                     <a href = '/products/<%= product.id %>'>

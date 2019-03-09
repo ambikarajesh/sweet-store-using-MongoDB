@@ -1,6 +1,10 @@
 const fs = require('fs');
 const util = require('util');
 const uniqid = require('uniqid');
+const configs = require("../config")
+const CartModel = require('../models/cartModel');
+const cartModel = new CartModel(configs.data.cart); 
+
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
@@ -28,6 +32,12 @@ class Products{
     async fetchProduct(productId){
         const products = await this.fetchProducts();
         return products.find(product => product.id === productId);
+    }
+    async removeProduct(productId){
+        const products = await this.fetchProducts();
+        const updatedProducts = products.filter(product => product.id !== productId);
+        await cartModel.DeleteItem(productId);
+        await writeFile(this.dataFile, JSON.stringify(updatedProducts));
     }
 }
 
