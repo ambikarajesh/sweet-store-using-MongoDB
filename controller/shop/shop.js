@@ -26,12 +26,7 @@ exports.getProduct = async(req, res, next)=>{
         product:product
     })
 }
-exports.addProducttoCart = async(req, res, next) =>{
-    const products = await productsModel.fetchProducts();
-    const product = products.find(product => product.id === req.body.productId);
-    const add = await cartModel.addItem(product);
-    res.redirect('/cart');
-}
+
 
 exports.getCart = async(req, res, next)=>{
     const cart = await cartModel.fetchCartItems();
@@ -42,6 +37,27 @@ exports.getCart = async(req, res, next)=>{
         subTotal:cart.subTotal
     })
 }
+
+exports.addProducttoCart = async(req, res, next) =>{
+    const products = await productsModel.fetchProducts();
+    const product = products.find(product => product.id === req.body.productId);
+    const add = await cartModel.addItem(product);
+    res.redirect('/cart');
+}
+
+exports.deleteCartItem = async(req, res, next) => {
+    await cartModel.DeleteItem(req.body.productId);
+    res.redirect('/cart')
+}
+exports.DecreaseCartItem = async(req, res, next) => {
+    await cartModel.DecreaseItem(req.body.productId);
+    res.redirect('/cart')
+}
+exports.IncreaseCartItem = async(req, res, next) => {
+    await cartModel.IncreaseItem(req.body.productId);
+    res.redirect('/cart')
+}
+
 exports.getOrders = (req, res, next)=>{
     res.render('shop/orders', {
         pageTitle : 'My Orders',

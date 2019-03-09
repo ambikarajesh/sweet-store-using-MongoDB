@@ -22,20 +22,29 @@
                                                 <h4> $ <%= item.price%> / per lb</h4>
                                         </div>
                                         
-                                        <div>
-                                            <button>-</button>
+                                        <div class = 'inc-dec'>
+                                            <form action='/decrease-cart-item' method='POST'>
+                                                <input type='hidden' value='<%= item.id %>' name='productId'/>
+                                                <button id = 'decrease-button'>-</button>
+                                            </form>
                                             <span style='font-size:13px;'><%= item.qt %> lb</span>
-                                            <button>+</button>
+                                            <form action='/increase-cart-item' method='POST'>
+                                                <input type='hidden' value='<%= item.id %>' name='productId'/>
+                                                <button id = 'increase-button'>+</button>
+                                            </form>
                                         </div>
-                                        <div>
-                                                <button>X remove</button>
+                                        <div>       
+                                            <form action='/delete-cart-item' method='POST'>
+                                                <input type='hidden' value='<%= item.id %>' name='productId'/>
+                                                <button id = 'remove-button'>X remove</button>
+                                            </form>
                                         </div>                                    
                                     </div>
                                 </li>
                             <% }) %>
                         </ul>
                     <% } else { %>
-                        <h3>no item in the cart...</h3>
+                        <p>no item in the cart...</p>
                     <% } %>
                 </div>
                 <div class = 'order-summary'>

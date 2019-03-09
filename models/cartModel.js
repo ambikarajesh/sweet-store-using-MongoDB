@@ -35,9 +35,50 @@ class Cart{
         }
         return await writeFile(this.dataFile, JSON.stringify(cart))
     }
+    async DecreaseItem(productId){
+        const cart = await this.getData();        
+        const Item = cart.products.find(item => item.id === productId);
+        if(Item.qt > 1) {
+            cart.products = cart.products.map(item => {
+                if((item.id === productId)){
+                    item.qt = item.qt - 1;
+                    cart.subTotal = cart.subTotal - +item.price;
+                    return item;
+                }else{
+                    return item;
+                }
+            })
+        }
+        return await writeFile(this.dataFile, JSON.stringify(cart))
+    }
+    async IncreaseItem(productId){
+        const cart = await this.getData();        
+        const Item = cart.products.find(item => item.id === productId);
+        if(Item.qt >= 1) {
+            cart.products = cart.products.map(item => {
+                if((item.id === productId)){
+                    item.qt = item.qt + 1;
+                    cart.subTotal = cart.subTotal + +item.price;
+                    return item;
+                }else{
+                    return item;
+                }
+            })
+        }
+        return await writeFile(this.dataFile, JSON.stringify(cart))
+    }
     
-    async DeleteItem(){
-
+    async DeleteItem(productId){
+        const cart = await this.getData();        
+        
+        cart.products.forEach(item => {
+            if(item.id === productId){
+                cart.subTotal = cart.subTotal - (item.price * item.qt);
+            }
+        })
+        cart.products = cart.products.filter(item => item.id !== productId);         
+        
+        return await writeFile(this.dataFile, JSON.stringify(cart))
     }
 }
 
