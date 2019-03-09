@@ -15,14 +15,12 @@
                                 <% products.forEach(product=>{ %>
                                     <li class = 'main-content_item'>
                                         <div>
-                                            <div class='item_image'><img src="<%= product.image  %>" alt = "<%= product.name %>" width ='200px' height = '200px' /></div>
+                                            <div class='item_image'><img src="<%= product.image %>" alt = "<%= product.name %>" width ='200px' height = '200px' /></div>
                                             <div class='item_name'><%= product.name%></div>
                                             <div class='item_price'> $ <%= product.price%> / per lb</div>
                                             <div class='item_button'>
-                                                <form action='/admin/edit-product' method='POST'>
-                                                    <input type='hidden' value='<%= product.id %>' name='productId'/>
-                                                    <button id = 'edit'>Edit</button>
-                                                </form>
+                                                <a href = '/admin/edit-product/<%= product.id %>?edit=true' id = 'edit'>Edit</a>
+                                                
                                                 <form action='/admin/products' method='POST'>
                                                     <input type='hidden' value='<%= product.id %>' name='productId'/>
                                                     <button id = 'delete'>Delete</button>

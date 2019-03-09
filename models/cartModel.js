@@ -80,6 +80,23 @@ class Cart{
         
         return await writeFile(this.dataFile, JSON.stringify(cart))
     }
+    async updateItem(product){
+        const cart = await this.getData();
+        cart.products = cart.products.map(item=> {
+            if(item.id === product.id){
+                cart.subTotal = cart.subTotal - (item.qt * item.price) + (item.qt * product.price);
+                item.name = product.name;
+                item.image = product.image;
+                item.price = product.price;
+                item.ingredients = product.ingredients;  
+                return item;                  
+            }
+            else{
+                return item;
+            }
+        })
+        await writeFile(this.dataFile, JSON.stringify(cart));
+    }
 }
 
 module.exports = Cart;

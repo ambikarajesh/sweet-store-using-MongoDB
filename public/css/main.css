@@ -90,8 +90,7 @@ main {
     text-align: center;
     padding:5px;
   }
-
-
+  
 .item_image {
    width: 100%;
    height: 200px;
@@ -136,6 +135,10 @@ main {
 }
 #edit, #delete{
     width:75px;
+
+}
+#edit{
+    padding:8px 20px;
 }
 
 i {

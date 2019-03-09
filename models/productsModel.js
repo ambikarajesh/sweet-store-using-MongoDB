@@ -24,10 +24,27 @@ class Products{
     }
    
     async storeProduct(product){
-        product.id = uniqid();
         const products = await this.fetchProducts();
-        products.push(product);
-        await writeFile(this.dataFile, JSON.stringify(products));
+        if(product.id){
+            const updatedProducts = products.map(item=> {
+                if(item.id === product.id){
+                    item.name = product.name;
+                    item.image = product.image;
+                    item.price = product.price;
+                    item.ingredients = product.ingredients;  
+                    return item;                  
+                }
+                else{
+                    return item;
+                }
+            })
+            await cartModel.updateItem(product);
+            await writeFile(this.dataFile, JSON.stringify(updatedProducts));
+        }else{
+            product.id = uniqid();           
+            products.push(product);
+            await writeFile(this.dataFile, JSON.stringify(products));
+        }
     }
     async fetchProduct(productId){
         const products = await this.fetchProducts();
@@ -38,6 +55,10 @@ class Products{
         const updatedProducts = products.filter(product => product.id !== productId);
         await cartModel.DeleteItem(productId);
         await writeFile(this.dataFile, JSON.stringify(updatedProducts));
+    }
+    async findProduct (productId){
+        const products = await this.fetchProducts();
+        return products.find(product => product.id === productId);
     }
 }
 
