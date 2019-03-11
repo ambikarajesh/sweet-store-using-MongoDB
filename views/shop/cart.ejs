@@ -11,9 +11,10 @@
                         <ul class='cart_main-content_itemlist'>
                             <% items.forEach (item =>{ %>
                                 <li class='cart_main-content_item'>
-                                    <div class='cart_item-image'>
-                                        <img src = '<%= item.image %>' width ='200px' height = '200px'/>
-                                    </div>
+                                    <a  href = '/products/<%= item.id %>' class='cart_item-image'>
+                                        
+                                            <img src = '<%= item.image %>' width ='200px' height = '200px'/>
+                                    </a>
                                     <div  class='cart_item-name'>
                                         <h4><%= item.name %></h4>
                                     </div>
