@@ -22,6 +22,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "js-alert": "^1.0.4",
+    "mongodb": "^3.1.13",
     "uniqid": "^5.0.3"
   },
   "devDependencies": {

@@ -1,62 +1,97 @@
 
-const configs = require("../../config")
 const ProductsModel = require('../../models/productsModel');
-const productsModel = new ProductsModel(configs.data.sweets);
-const CartModel = require('../../models/cartModel');
-const cartModel = new CartModel(configs.data.cart);
+const productsModel = new ProductsModel();
+const UsersModel = require('../../models/usersModel');
+const usersModel = new UsersModel();
+
 exports.getIndex= async(req, res, next)=>{
     res.render('shop/home', {
         pageTitle : 'Shop',
         path: '/',
     })
 }
-exports.getProducts = async(req, res, next)=>{
-    const products = await productsModel.fetchProducts();
-    res.render('shop/product-list', {
-        pageTitle : 'Products',
-        path: '/products',
-        products:products
-    })
+exports.getProducts = (req, res, next)=>{
+    productsModel.fetchProducts().then(products => {
+        res.render('shop/product-list', {
+            pageTitle : 'Products',
+            path: '/products',
+            products:products
+    });
+})
 }
-exports.getProduct = async(req, res, next)=>{
-    const product = await productsModel.fetchProduct(req.params.productId);
-    res.render('shop/product-detail', {
-        pageTitle : 'Products',
-        path: '/products',
-        product:product
-    })
+exports.getProduct = (req, res, next)=>{
+    productsModel.fetchProduct(req.params.productId).then(product => {
+        res.render('shop/product-detail', {
+            pageTitle : 'Products',
+            path: '/products',
+            product:product
+        })
+    }).catch(err => {
+        console.log(err)
+    });
+    
 }
 
 
 exports.getCart = async(req, res, next)=>{
-    const cart = await cartModel.fetchCartItems();
-    res.render('shop/cart', {
-        pageTitle : 'My Cart',
-        path: '/cart',
-        items: cart.products,
-        subTotal:cart.subTotal
-    })
+    usersModel.fetchCartProduct(req.user).then(cart => {
+        res.render('shop/cart', {
+            pageTitle : 'My Cart',
+            path: '/cart',
+            items: cart.items,
+            products:cart.saveForLater,
+            subTotal:cart.subTotal
+        })
+    }).catch(err => console.log(err))
+        
 }
 
 exports.addProducttoCart = async(req, res, next) =>{
-    const products = await productsModel.fetchProducts();
-    const product = products.find(product => product.id === req.body.productId);
-    const add = await cartModel.addItem(product);
-    res.redirect('/cart');
+    productsModel.fetchProduct(req.body.productId).then(product => {
+        usersModel.addProductToCart(product, req.user).then(()=>{
+            res.redirect('/cart');
+        })        
+    }).catch(err => {
+        console.log(err)
+    });   
 }
 
 exports.deleteCartItem = async(req, res, next) => {
-    await cartModel.DeleteItem(req.body.productId);
-    res.redirect('/cart')
+    usersModel.removeCartItem(req.body.productId, req.user).then(()=>{
+        res.redirect('/cart');
+    })
+    
 }
 exports.DecreaseCartItem = async(req, res, next) => {
-    await cartModel.DecreaseItem(req.body.productId);
-    res.redirect('/cart')
+    usersModel.DecreaseItem(req.body.productId, req.user).then(()=>{
+        res.redirect('/cart');
+    }).catch(err=> console.log(err))
 }
 exports.IncreaseCartItem = async(req, res, next) => {
-    await cartModel.IncreaseItem(req.body.productId);
-    res.redirect('/cart')
+    usersModel.IncreaseItem(req.body.productId, req.user).then(()=>{
+        res.redirect('/cart');
+    }).catch(err=> console.log(err))
 }
+
+
+exports.moveToCartItem = async(req, res, next) => {
+    usersModel.moveItemToCart(req.body.productId, req.user).then(()=>{
+        res.redirect('/cart');
+    }).catch(err=> console.log(err))
+}
+
+exports.saveForLaterItem = async(req, res, next) => {
+    usersModel.saveLaterItem(req.body.productId, req.user).then(()=>{
+        res.redirect('/cart');
+    }).catch(err=> console.log(err))
+}
+exports.deleteSaveLaterItem = async(req, res, next) => {
+    usersModel.deleteSaveItem(req.body.productId, req.user).then(()=>{
+        res.redirect('/cart');
+    }).catch(err=> console.log(err))
+}
+
+
 
 exports.getOrders = (req, res, next)=>{
     res.render('shop/orders', {

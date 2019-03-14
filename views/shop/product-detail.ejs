@@ -18,7 +18,7 @@
                     <h4>$<%= product.price %> / per lb</h4>
                     <p>Free Shipping</p>
                     <form action = '/cart' method = 'POST'>
-                        <input type = 'hidden' value = '<%= product.id %>' name = 'productId'>
+                        <input type = 'hidden' value = '<%= product._id %>' name = 'productId'>
                         <button id = 'add-to-cart'>Add to Cart</button>
                     </form>
                     <button id = 'add-to-wishlist'>Add to Wishlist</button>

@@ -9,8 +9,7 @@
             <nav class='main-content_nav'>
                 <p onclick ="rightArrow()"><i class="right"></i></p>  
                  <div class = 'main-content_wrapper'>             
-                    <% if(products.length>0){ %>
-                        
+                    <% if(products.length>0){ %>                        
                             <ul class = 'main-content_item-list'>
                                 <% products.forEach(product=>{ %>
                                     <li class = 'main-content_item'>
@@ -19,10 +18,10 @@
                                             <div class='item_name'><%= product.name%></div>
                                             <div class='item_price'> $ <%= product.price%> / per lb</div>
                                             <div class='item_button'>
-                                                <a href = '/admin/edit-product/<%= product.id %>?edit=true' id = 'edit'>Edit</a>
+                                                <a href = '/admin/edit-product/<%= product._id %>?edit=true' id = 'edit'>Edit</a>
                                                 
                                                 <form action='/admin/products' method='POST'>
-                                                    <input type='hidden' value='<%= product.id %>' name='productId'/>
+                                                    <input type='hidden' value='<%= product._id %>' name='productId'/>
                                                     <button id = 'delete'>Delete</button>
                                                 </form>
                                             </div>

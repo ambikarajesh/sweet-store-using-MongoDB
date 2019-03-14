@@ -17,7 +17,7 @@
                     <label for='name'>Ingredients: </label>
                     <input type='text' name='ingredients' value= '<% if(edit) { %><%=product.ingredients %> <% } %>'/>
                     <% if(edit) { %>
-                        <input type='hidden' name='id' value = '<%= product.id %>'
+                        <input type='hidden' name='id' value = '<%= product._id %>'
                     <% } %>   
                 </div>
                 <button type='submit' id='product-button'><% if (edit) { %> Update Product <% }else { %> Add Product <% } %></button>

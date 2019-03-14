@@ -1,64 +1,59 @@
-const fs = require('fs');
-const util = require('util');
-const uniqid = require('uniqid');
-const configs = require("../config")
-const CartModel = require('../models/cartModel');
-const cartModel = new CartModel(configs.data.cart); 
 
-const readFile = util.promisify(fs.readFile);
-const writeFile = util.promisify(fs.writeFile);
+const uniqid = require('uniqid');
+const getDB = require('../util/database').getDB;
+const mongodb = require('mongodb');
+
+// const CartModel = require('../models/cartModel');
+// const cartModel = new CartModel(configs.data.cart); 
+
 
 class Products{
-    constructor(dataFile){
-        this.dataFile = dataFile;
-    }
-    async fetchProducts(){
-        const products = await readFile(this.dataFile, 'utf-8');
-        if(!products){
-            return [];
+    storeProduct(product){
+        const db = getDB();
+        if(product.id){
+            return db.collection('products').updateOne({_id: new mongodb.ObjectID(product.id)}, {$set:{name:product.name, image:product.image, price:product.price, ingredients:product.ingredients}}); 
         }
         else{
-            return JSON.parse(products);
+            return db.collection('products').insertOne(product);
         }
+        
+    }
 
+    fetchProducts(){
+        const db = getDB();
+        return db.collection('products').find().toArray().then(products => {
+            return products;
+        }).catch(err =>{
+            console.log(err)
+        });
+    }  
+
+    fetchProduct(productId){
+        const db = getDB();
+        return db.collection('products').find({_id: new mongodb.ObjectID(productId)}).next().then(product => {
+            return product;
+        }).catch(err =>{
+            console.log(err)
+        });
     }
-   
-    async storeProduct(product){
-        const products = await this.fetchProducts();
-        if(product.id){
-            const updatedProducts = products.map(item=> {
-                if(item.id === product.id){
-                    item.name = product.name;
-                    item.image = product.image;
-                    item.price = product.price;
-                    item.ingredients = product.ingredients;  
-                    return item;                  
-                }
-                else{
-                    return item;
-                }
-            })
-            await cartModel.updateItem(product);
-            await writeFile(this.dataFile, JSON.stringify(updatedProducts));
-        }else{
-            product.id = uniqid();           
-            products.push(product);
-            await writeFile(this.dataFile, JSON.stringify(products));
-        }
+
+    removeProduct(productId){
+        console.log(productId)
+        const db = getDB();
+        return db.collection('products').remove({_id: new mongodb.ObjectID(productId)}).then(product => {
+            return product;
+        }).catch(err =>{
+            console.log(err)
+        });
     }
-    async fetchProduct(productId){
-        const products = await this.fetchProducts();
-        return products.find(product => product.id === productId);
-    }
-    async removeProduct(productId){
-        const products = await this.fetchProducts();
-        const updatedProducts = products.filter(product => product.id !== productId);
-        await cartModel.DeleteItem(productId);
-        await writeFile(this.dataFile, JSON.stringify(updatedProducts));
-    }
-    async findProduct (productId){
-        const products = await this.fetchProducts();
-        return products.find(product => product.id === productId);
+    
+    findProduct (productId){
+        const db = getDB();
+        return db.collection('products').find({_id: new mongodb.ObjectID(productId)}).next().then(product => {
+            return product;
+        }).catch(err =>{
+            console.log(err)
+        });
     }
 }
 
