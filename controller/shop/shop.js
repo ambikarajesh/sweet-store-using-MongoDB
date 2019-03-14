@@ -94,14 +94,20 @@ exports.deleteSaveLaterItem = async(req, res, next) => {
 
 
 exports.getOrders = (req, res, next)=>{
-    res.render('shop/orders', {
-        pageTitle : 'My Orders',
-        path: '/orders'
-    })
+    usersModel.fetchOrders(req.user).then(orders=>{
+        console.log(orders)
+        res.render('shop/orders', {
+            pageTitle : 'My Orders',
+            path: '/orders',
+            orders:orders
+        })
+    }).catch(err => console.log(err))
 }
 exports.getCheckout = (req, res, next)=>{
-    res.render('shop/checkout', {
-        pageTitle : 'Checkout',
-        path: '/checkout'
-    })
+    usersModel.orderItems(req.user).then(()=>{
+        res.render('shop/checkout', {
+            pageTitle : 'Checkout',
+            path: '/checkout'
+        })
+    }).catch(err => console.log(err))
 }

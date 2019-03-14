@@ -11,7 +11,7 @@
                             <ul class='cart_main-content_itemlist'>
                                 <% items.forEach (item =>{ %>
                                     <li class='cart_main-content_item'>
-                                        <a  href = '/products/<%= item.id %>' class='cart_item-image'>                                    
+                                        <a  href = '/products/<%= item._id %>' class='cart_item-image'>                                    
                                             <img src = '<%= item.image %>' width ='200px' height = '200px'/>
                                         </a>
                                         <div  class='cart_item-name'>
@@ -55,7 +55,7 @@
                                 <ul class='cart_main-content_itemlist'>
                                     <% products.forEach (product =>{ %>
                                         <li class='cart_main-content_item'>
-                                            <a  href = '/products/<%= product.id %>' class='cart_item-image'>                                    
+                                            <a  href = '/products/<%= product._id %>' class='cart_item-image'>                                    
                                                 <img src = '<%= product.image %>' width ='200px' height = '200px'/>
                                             </a>
                                             <div  class='cart_item-name'>
@@ -84,9 +84,7 @@
                         </div>
                         
                     </div>
-                    <div>
-                        
-                    </div>
+                    
                     <div class = 'order-summary'>
                         <div>
                             <h3>Order Summary</h3>
@@ -103,7 +101,10 @@
                                     <strong><%= subTotal %> USD</strong>  
                             </p>
                             <% if(items.length !== 0) { %>
-                                <button id='proceed-to-checkout'>Proceed to Checkout*</button>
+                                <form action='/checkout' method='POST'>
+                                    <button id='proceed-to-checkout'>Proceed to Checkout*</button>
+                                </form>
+                                
                             <% } %>
                             <h6 style = 'padding-top:20px'>* Prices may vary depending on the final shipping destination.</h6>
                         </div>

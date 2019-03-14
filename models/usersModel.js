@@ -131,6 +131,30 @@ class Users{
             return db.collection('users').updateOne({_id: new mongodb.ObjectID(user._id)}, {$set:{cart:Cart}})
         }).catch(err => console.log(err))
     }
+    orderItems(User){
+        const db =getDB();
+        return db.collection('users').findOne({_id: new mongodb.ObjectID(User._id)}).then(user => {
+            const orderItems = user.cart.items;
+            user.cart.items = [];
+            user.cart.subTotal = 0;
+            const order = {
+                userId: new mongodb.ObjectID(User._id),
+                name:user.name,
+                email:user.email,
+                orderItems:orderItems
+             }
+            return db.collection('users').updateOne({_id: new mongodb.ObjectID(user._id)}, {$set:{cart:user.cart}}).then(()=>{
+                return db.collection('orders').insertOne(order);
+            })
+        }).catch(err => console.log(err))
+    }
+    fetchOrders(User){
+        const db =getDB();
+        return db.collection('orders').find({userId: new mongodb.ObjectID(User._id)}).toArray().then(orders => {
+          return orders
+                
+        })
+    }
 
 }
 module.exports = Users;

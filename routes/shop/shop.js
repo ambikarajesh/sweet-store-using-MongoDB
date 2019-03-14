@@ -13,7 +13,7 @@ router.post('/delete-save-for-later-item', shopController.deleteSaveLaterItem)
 router.post('/move-to-cart-item', shopController.moveToCartItem)
 router.post('/decrease-cart-item', shopController.DecreaseCartItem);
 router.post('/increase-cart-item', shopController.IncreaseCartItem);
-router.get('/checkout', shopController.getCheckout);
+router.post('/checkout', shopController.getCheckout);
 router.get('/orders', shopController.getOrders);
 
 
